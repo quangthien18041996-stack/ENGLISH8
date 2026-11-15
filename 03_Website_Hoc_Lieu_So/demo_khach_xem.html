@@ -925,20 +925,12 @@
     <div class="bg-white rounded-3xl max-w-xl w-full my-auto overflow-hidden shadow-2xl border border-gray-200 relative flex flex-col max-h-[92vh]">
       
       <!-- Modal Header Bar -->
-      <div class="sticky top-0 z-30 bg-heritage-navy text-white px-5 py-3.5 flex items-center justify-between border-b border-white/10 shrink-0">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-xl bg-heritage-gold text-slate-950 flex items-center justify-center font-bold">
-            <i data-lucide="sparkles" class="w-4 h-4"></i>
-          </div>
-          <div>
-            <div class="flex items-center gap-1.5">
-              <span class="px-1.5 py-0.5 rounded bg-heritage-gold text-slate-950 text-[10px] font-black uppercase">STEM Lớp 8</span>
-              <span class="text-[11px] text-amber-200">Kế hoạch 12070 / CV 5512</span>
-            </div>
-            <h3 class="text-sm font-bold text-white leading-tight">Infographic Di Sản & Tương Tác Đồng Đẳng</h3>
-          </div>
+      <div class="sticky top-0 z-30 bg-heritage-navy text-white px-5 py-3 flex items-center justify-between border-b border-white/10 shrink-0">
+        <div class="flex items-center gap-2">
+          <i data-lucide="heart" class="w-4 h-4 text-rose-400 fill-rose-400 animate-pulse"></i>
+          <h3 class="text-sm font-bold text-white leading-tight">Infographic Di Sản & Tương Tác Đồng Đẳng</h3>
         </div>
-        <button onclick="closeInfographicModal()" class="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition cursor-pointer">
+        <button onclick="closeInfographicModal()" class="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition cursor-pointer" title="Đóng">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -946,10 +938,7 @@
       <!-- Scrollable Body Content -->
       <div class="p-4 sm:p-5 overflow-y-auto custom-scrollbar space-y-4">
 
-        <!-- 4 Station Selector in Modal -->
-        <div class="flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-gray-200 overflow-x-auto no-scrollbar" id="modal-station-tabs">
-          <!-- Injected by JS -->
-        </div>
+
 
         <!-- Poster Box -->
         <div class="rounded-2xl border border-gray-200 overflow-hidden shadow-sm bg-white">
@@ -3014,6 +3003,7 @@
 
     function renderModalStationTabs() {
       const nav = document.getElementById('modal-station-tabs');
+      if (!nav) return;
       const sites = Object.values(MODAL_INFOGRAPHIC_DATA);
       nav.innerHTML = sites.map(s => `
         <button onclick="switchModalStation('${s.id}')" class="px-3 py-1 rounded-xl text-xs font-bold whitespace-nowrap transition flex items-center gap-1 cursor-pointer ${s.id === modalCurrentSiteId ? 'bg-heritage-navy text-heritage-gold shadow-sm' : 'bg-white text-gray-600 hover:bg-gray-100'}">

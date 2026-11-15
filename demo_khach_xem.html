@@ -77,15 +77,14 @@
 <body class="text-gray-800 flex flex-col min-h-screen">
 
   <!-- TOP ANNOUNCEMENT BAR FOR TEACHERS -->
-  <div class="bg-gradient-to-r from-heritage-navy via-blue-900 to-heritage-navy text-white text-xs py-2 px-4 border-b border-blue-950">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+  <div class="bg-gradient-to-r from-heritage-navy via-blue-900 to-heritage-navy text-white text-xs py-2 px-3 sm:px-4 border-b border-blue-950">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 text-center sm:text-left">
       <div class="flex items-center gap-2">
-        
-        <span data-i18n="deptNotice" class="text-gray-200 font-medium">Ho Chi Minh City Department of Education & Training • STEM & Digital Learning Contest</span>
+        <span data-i18n="deptNotice" class="text-gray-200 text-[10px] sm:text-xs font-medium">Ho Chi Minh City Department of Education & Training • STEM & Digital Learning Contest</span>
       </div>
-      <div class="flex items-center gap-4 text-[11px]">
+      <div class="flex items-center justify-center gap-3 text-[11px] shrink-0">
         <span class="text-heritage-gold font-medium flex items-center gap-1">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> <span data-i18n="gradeBadge">English 8</span>
+          <i data-lucide="sparkles" class="w-3 h-3"></i> <span data-i18n="gradeBadge">English 8</span>
         </span>
         <button onclick="toggleLanguage()" id="lang-btn" class="hover:text-heritage-gold transition underline flex items-center gap-1 cursor-pointer">
           <i data-lucide="languages" class="w-3.5 h-3.5"></i>
@@ -95,44 +94,55 @@
     </div>
   </div>
 
-  <!-- NAVIGATION HEADER -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur shadow-sm border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-xl bg-heritage-navy text-heritage-gold flex items-center justify-center shadow-md">
-          <i data-lucide="landmark" class="w-7 h-7"></i>
+  <!-- NAVIGATION HEADER (Fully Responsive for Mobile & Desktop) -->
+  <header class="sticky top-0 z-40 bg-white shadow-sm border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 min-h-[64px] sm:h-20 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-4">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center justify-between w-full sm:w-auto gap-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-heritage-navy text-heritage-gold flex items-center justify-center shadow-md shrink-0">
+            <i data-lucide="landmark" class="w-5 h-5 sm:w-7 sm:h-7"></i>
+          </div>
+          <div>
+            <span data-i18n="portalSubtitle" class="hidden sm:block text-[11px] font-bold uppercase tracking-wider text-heritage-red">Junior Digital Heritage Guide</span>
+            <h1 data-i18n="portalTitle" class="text-sm sm:text-lg lg:text-xl font-black text-heritage-navy leading-tight">SAIGON HERITAGE AUDIO PORTAL</h1>
+          </div>
         </div>
-        <div>
-          <span data-i18n="portalSubtitle" class="text-[11px] font-bold uppercase tracking-wider text-heritage-red block">Junior Digital Heritage Guide</span>
-          <h1 data-i18n="portalTitle" class="text-lg sm:text-xl font-bold text-heritage-navy leading-tight">SAIGON HERITAGE AUDIO PORTAL</h1>
-        </div>
+
+        <!-- Mobile Language Quick Button -->
+        <button onclick="toggleLanguage()" class="sm:hidden px-2 py-1 bg-slate-100 hover:bg-slate-200 text-heritage-navy rounded-lg text-[11px] font-bold flex items-center gap-1 border border-gray-300 shrink-0 cursor-pointer" title="Switch Language">
+          <i data-lucide="languages" class="w-3.5 h-3.5 text-blue-600"></i>
+          <span id="lang-label-mobile">VI / EN</span>
+        </button>
       </div>
 
-      <!-- Main Navigation Menu -->
+      <!-- Main Navigation Menu (Desktop) -->
       <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-gray-600">
         <a href="#sites-section" class="hover:text-heritage-navy transition flex items-center gap-1">
           <i data-lucide="map-pin" class="w-4 h-4 text-heritage-accent"></i> <span data-i18n="navLandmarks">4 Landmarks</span>
         </a>
       </nav>
 
-      <!-- Action Buttons -->
-      <div class="flex items-center gap-2.5">
+      <!-- Action Buttons Row -->
+      <div class="flex items-center justify-between sm:justify-end gap-1.5 sm:gap-2.5 w-full sm:w-auto">
         <!-- Nút Giáo viên kiểm duyệt / Teacher Verification -->
-        <button onclick="openTeacherVerifyModal()" id="teacher-verify-btn" class="flex items-center gap-1.5 px-3 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border-2 border-emerald-400 font-extrabold text-xs rounded-lg shadow-sm transition transform active:scale-95 cursor-pointer" title="Teacher Verification: Review and approve student heritage data">
-          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
-          <span data-i18n="btnTeacherVerify" class="font-black">Teacher Verification</span>
+        <button onclick="openTeacherVerifyModal()" id="teacher-verify-btn" class="flex-1 sm:flex-none flex items-center justify-center gap-1 px-2.5 sm:px-3 py-1.5 sm:py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border-2 border-emerald-400 font-extrabold text-[11px] sm:text-xs rounded-lg shadow-xs transition transform active:scale-95 cursor-pointer shrink-0" title="Teacher Verification: Review and approve student heritage data">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+          <span data-i18n="btnTeacherVerify" class="font-black whitespace-nowrap">Teacher Verification</span>
         </button>
 
-        <button onclick="startPresentationMode(0)" id="present-btn" class="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold text-xs rounded-lg shadow-md transition transform active:scale-95 cursor-pointer" title="Launch Classroom Presentation Mode">
-          <i data-lucide="presentation" class="w-4 h-4 text-slate-950"></i>
-          <span data-i18n="btnPresent" class="font-extrabold">Presentation Mode</span>
+        <button onclick="startPresentationMode(0)" id="present-btn" class="flex-1 sm:flex-none flex items-center justify-center gap-1 px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold text-[11px] sm:text-xs rounded-lg shadow-md transition transform active:scale-95 cursor-pointer shrink-0" title="Launch Classroom Presentation Mode">
+          <i data-lucide="presentation" class="w-3.5 h-3.5 text-slate-950 shrink-0"></i>
+          <span data-i18n="btnPresent" class="font-extrabold whitespace-nowrap">Presentation Mode</span>
         </button>
 
-        <button onclick="openSubmitModal('site-1')" class="flex items-center gap-1.5 px-3.5 py-2 bg-heritage-navy hover:bg-blue-900 text-white font-semibold text-xs rounded-lg shadow-md transition" title="Open student assignment submission workspace">
-          <i data-lucide="plus-circle" class="w-4 h-4 text-heritage-gold"></i>
-          <span data-i18n="btnSubmit">Student Submit</span>
+        <button onclick="openSubmitModal('site-1')" class="flex-1 sm:flex-none flex items-center justify-center gap-1 px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-heritage-navy hover:bg-blue-900 text-white font-semibold text-[11px] sm:text-xs rounded-lg shadow-md transition shrink-0 cursor-pointer" title="Open student assignment submission workspace">
+          <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-heritage-gold shrink-0"></i>
+          <span data-i18n="btnSubmit" class="whitespace-nowrap">Student Submit</span>
         </button>
       </div>
+
     </div>
   </header>
 
@@ -140,7 +150,7 @@
   <section class="hero-pattern text-white py-14 sm:py-20 px-4">
     <div class="max-w-6xl mx-auto text-center">
       
-      <h2 data-i18n="heroTitle" class="text-3xl sm:text-5xl lg:text-[54px] xl:text-[58px] font-serif font-bold text-white mb-6 leading-tight tracking-tight">
+      <h2 data-i18n="heroTitle" class="text-2xl sm:text-4xl lg:text-[54px] xl:text-[58px] font-serif font-bold text-white mb-5 leading-tight tracking-tight">
         <span class="block mb-3 sm:mb-4">Discover Saigon’s Heritage Through</span>
         <span class="block">60-Second English Audio Guides</span>
       </h2>
@@ -1553,6 +1563,11 @@
       
       const label = document.getElementById('lang-label');
       if (label) label.innerText = dict.langToggle;
+
+      const mobileLangLabel = document.getElementById('lang-label-mobile');
+      if (mobileLangLabel) {
+        mobileLangLabel.innerText = isVietnamese ? 'Tiếng Việt' : 'English';
+      }
 
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');

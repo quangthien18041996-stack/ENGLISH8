@@ -539,6 +539,15 @@
       countEl.innerText = count;
       localStorage.setItem(`saigon_hearts_${siteId}`, count);
 
+      // Broadcast real-time to teacher screen / classroom projector
+      try {
+        fetch('https://ntfy.sh/saigon_heritage_live_hearts_v1', {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ action: 'heart', siteId: siteId, count: count, timestamp: Date.now() })
+        }).catch(err => console.log('Live sync notice', err));
+      } catch(e) {}
+
       // Button pop
       const btn = document.getElementById('heart-btn');
       btn.classList.add('scale-110');
@@ -619,6 +628,21 @@
       });
 
       saveSiteComments(currentSiteId, comments);
+
+      // Broadcast comment real-time to classroom projector
+      try {
+        fetch('https://ntfy.sh/saigon_heritage_live_hearts_v1', {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            action: 'comment',
+            siteId: currentSiteId,
+            comment: { author: author, time: "Vừa xong", text: text },
+            timestamp: Date.now()
+          })
+        }).catch(err => console.log('Comment sync error', err));
+      } catch(e) {}
+
       renderComments(currentSiteId);
       textInput.value = "";
 

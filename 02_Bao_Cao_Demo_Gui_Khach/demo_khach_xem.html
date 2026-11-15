@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEMO Ý TƯỞNG DỰ ÁN - Saigon Heritage QR Audio Guide</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            heritage: {
+              navy: '#002B49',
+              gold: '#D4AF37',
+              red: '#C8102E',
+              cream: '#FDFBF7',
+              accent: '#E65100'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F8F9FA;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .hero-pattern {
+      background: linear-gradient(135deg, rgba(0, 43, 73, 0.95), rgba(0, 78, 137, 0.9)), url('https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1920&q=80') center/cover;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="text-gray-800 flex flex-col min-h-screen">
+
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur shadow-sm border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-heritage-navy text-heritage-gold hover:bg-blue-950 transition shadow-sm" title="Mở trang dành cho học sinh nộp bài">
+          <i data-lucide="arrow-left-right" class="w-3.5 h-3.5"></i>
+          <span>Xem bản Học sinh nộp bài</span>
+        </a>
+        <div class="w-12 h-12 rounded-xl bg-heritage-navy text-heritage-gold flex items-center justify-center shadow-md">
+          <i data-lucide="landmark" class="w-7 h-7"></i>
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-heritage-accent block">★ BẢN DEMO Ý TƯỞNG GỬI KHÁCH HÀNG / ĐỐI TÁC ★</span>
+          <h1 class="text-lg sm:text-xl font-bold text-heritage-navy leading-tight">SAIGON HERITAGE AUDIO GUIDE</h1>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-heritage-navy text-heritage-gold hover:bg-blue-950 transition shadow-sm" title="Mở trang dành cho học sinh nộp bài">
+          <i data-lucide="arrow-left-right" class="w-3.5 h-3.5"></i>
+          <span>Xem bản Học sinh nộp bài</span>
+        </a>
+        <button onclick="toggleAccessibilityMode()" id="access-btn" class="flex items-center gap-2 px-3 py-2 text-xs sm:text-sm font-semibold rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-700" title="Bật/Tắt chế độ cỡ chữ lớn">
+          <i data-lucide="eye" class="w-4 h-4 text-heritage-navy"></i>
+          <span class="hidden md:inline">Chữ lớn (Accessible)</span>
+        </button>
+
+        <button onclick="resetAllToBlank()" class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border border-gray-200 text-gray-500 hover:text-red-600 hover:border-red-200 transition" title="Xóa toàn bộ ảnh và kịch bản để làm đợt nộp mới">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          <span class="hidden lg:inline">Đặt lại mẫu trống</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-pattern text-white py-14 sm:py-16 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-1.5 rounded-full border border-white/20 text-xs sm:text-sm text-heritage-gold font-medium mb-5">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
+        <span>Voices of Our Community • Lớp 8 THCS TP. Hồ Chí Minh</span>
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-serif font-bold text-white mb-3 leading-tight">
+        4 Di tích Lịch sử Sài Gòn
+      </h2>
+      <p class="text-gray-200 text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed mb-6">
+        Giáo viên đã phân sẵn 4 trạm di tích. Mỗi nhóm học sinh bấm vào trạm của mình để tự tay tải lên <b>ảnh chính diện</b>, <b>4 ảnh chi tiết</b>, kịch bản tiếng Anh và mã QR giọng đọc.
+      </p>
+
+      <!-- Search & Status Filter -->
+      <div class="bg-white p-2.5 rounded-2xl shadow-xl max-w-xl mx-auto flex flex-col sm:flex-row gap-2">
+        <div class="flex-1 flex items-center px-3 text-gray-500">
+          <i data-lucide="search" class="w-5 h-5 mr-2 text-gray-400"></i>
+          <input type="text" id="search-input" onkeyup="filterPlaces()" placeholder="Tìm tên di tích, nhóm..." class="w-full text-sm outline-none text-gray-700 bg-transparent py-1.5">
+        </div>
+        <select id="status-filter" onchange="filterPlaces()" class="text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-gray-700 outline-none font-medium">
+          <option value="all">Tất cả trạng thái</option>
+          <option value="pending">Chờ nộp bài</option>
+          <option value="completed">Đã nộp bài</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Metrics / Project Pillars -->
+  <section class="py-5 bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div class="p-2">
+        <div class="text-2xl sm:text-3xl font-extrabold text-heritage-navy">4</div>
+        <div class="text-xs text-gray-500 font-medium">Di tích trọng điểm</div>
+      </div>
+      <div class="p-2">
+        <div class="text-2xl sm:text-3xl font-extrabold text-heritage-navy" id="stat-submitted-count">0 / 4</div>
+        <div class="text-xs text-gray-500 font-medium">Nhóm đã nộp bài</div>
+      </div>
+      <div class="p-2">
+        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-600">100% Tự tải</div>
+        <div class="text-xs text-gray-500 font-medium">Học sinh tự tải ảnh & kịch bản</div>
+      </div>
+      <div class="p-2">
+        <div class="text-2xl sm:text-3xl font-extrabold text-heritage-red">1 + 4 Ảnh</div>
+        <div class="text-xs text-gray-500 font-medium">1 Ảnh chính diện + 4 Ảnh phụ</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Showcase Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h3 class="text-2xl font-bold text-heritage-navy font-serif">4 Trạm Di tích Dành cho Học sinh</h3>
+        <p class="text-xs sm:text-sm text-gray-500 mt-1">Các nhóm học sinh chọn đúng di tích của nhóm mình, bấm <b>"Tải ảnh & Nhập bài"</b> để hoàn thành sản phẩm</p>
+      </div>
+      <span id="place-count-badge" class="px-3 py-1 bg-blue-50 text-heritage-navy font-bold text-xs rounded-full border border-blue-200">
+        4 di tích
+      </span>
+    </div>
+
+    <!-- Cards Container -->
+    <div id="places-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Dynamic cards rendered by JS -->
+    </div>
+  </main>
+
+  <!-- Modal: Student Submission / Edit Form -->
+  <div id="edit-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-fade-in">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 bg-heritage-navy text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-heritage-navy text-heritage-gold hover:bg-blue-950 transition shadow-sm" title="Mở trang dành cho học sinh nộp bài">
+          <i data-lucide="arrow-left-right" class="w-3.5 h-3.5"></i>
+          <span>Xem bản Học sinh nộp bài</span>
+        </a>
+          <div class="p-2 bg-white/10 rounded-lg text-heritage-gold">
+            <i data-lucide="image-plus" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold" id="modal-site-title">Tải ảnh & Nhập bài thuyết minh</h3>
+            <p class="text-xs text-gray-300">Tải lên 1 ảnh chính diện + 4 ảnh phụ, nhập kịch bản và audio</p>
+          </div>
+        </div>
+        <button onclick="closeEditModal()" class="text-gray-300 hover:text-white p-1 rounded-lg">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Form) -->
+      <form id="submission-form" onsubmit="handleFormSubmit(event)" class="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-6 text-sm">
+        <input type="hidden" id="modal-site-id">
+
+        <!-- Group & Class Info -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Tên nhóm / Số thứ tự nhóm <span class="text-red-500">*</span></label>
+            <input type="text" id="form-group" required placeholder="Ví dụ: Nhóm 1 - Heritage Ambassadors" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-heritage-navy outline-none">
+          </div>
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Lớp & Trường <span class="text-red-500">*</span></label>
+            <input type="text" id="form-class" required placeholder="Ví dụ: Lớp 8A1 - THCS Võ Trường Toản" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-heritage-navy outline-none">
+          </div>
+        </div>
+
+        <!-- PHOTO UPLOAD SECTION: 1 MAIN + 4 SUBS -->
+        <div class="p-4 bg-amber-50/70 border border-amber-200 rounded-2xl space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-heritage-navy font-bold">
+              <i data-lucide="camera" class="w-4 h-4 text-heritage-accent"></i>
+              <span>Bộ 5 ảnh di tích của nhóm (Học sinh tự tải lên)</span>
+            </div>
+            <span class="text-[11px] text-gray-500 italic">Chọn tệp từ máy hoặc dán link ảnh</span>
+          </div>
+
+          <!-- 1 Main Photo (Ảnh chính diện) -->
+          <div class="bg-white p-3.5 rounded-xl border border-amber-300 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="font-bold text-heritage-navy text-xs flex items-center gap-1.5">
+                <span class="w-5 h-5 bg-heritage-navy text-white rounded-full flex items-center justify-center text-[10px] font-bold">1</span>
+                <span>Ảnh chính diện di tích (Bìa toàn cảnh lớn) <span class="text-red-500">*</span></span>
+              </label>
+              <span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-medium">Bắt buộc</span>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 items-center">
+              <div class="w-28 h-20 rounded-lg bg-gray-100 border-2 border-dashed border-gray-300 overflow-hidden flex items-center justify-center flex-shrink-0" id="preview-main-box">
+                <img id="preview-main" src="" class="w-full h-full object-cover hidden">
+                <span id="preview-main-placeholder" class="text-[10px] text-gray-400 text-center px-1">Chưa chọn ảnh chính</span>
+              </div>
+              <div class="flex-1 w-full space-y-1.5">
+                <input type="file" id="file-main" accept="image/*" onchange="handleImageFile(this, 'main')" class="text-xs text-gray-600 file:mr-2 file:py-1 file:px-2.5 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-heritage-navy file:text-white hover:file:bg-blue-900 cursor-pointer">
+                <input type="url" id="url-main" oninput="handleImageUrl(this, 'main')" placeholder="Hoặc dán URL ảnh chính..." class="w-full px-2.5 py-1 text-xs border border-gray-300 rounded outline-none focus:ring-1 focus:ring-heritage-navy">
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Sub Photos Grid -->
+          <div>
+            <label class="block font-bold text-gray-700 text-xs mb-2">4 Ảnh phụ (Chi tiết kiến trúc, hoa văn, nội thất, hiện vật):</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              
+              <!-- Sub Photo 1 -->
+              <div class="bg-white p-2.5 rounded-xl border border-gray-200 space-y-1.5">
+                <div class="flex items-center justify-between text-[11px] font-semibold text-gray-600">
+                  <span>Ảnh phụ 1 (Kiến trúc 1)</span>
+                  <span class="text-[10px] text-gray-400">Mái vòm / Tháp</span>
+                </div>
+                <div class="flex gap-2 items-center">
+                  <div class="w-14 h-14 rounded-lg bg-gray-100 border border-gray-300 overflow-hidden flex items-center justify-center flex-shrink-0">
+                    <img id="preview-sub-0" src="" class="w-full h-full object-cover hidden">
+                    <span id="preview-sub-placeholder-0" class="text-[9px] text-gray-400">Ảnh 1</span>
+                  </div>
+                  <div class="flex-1 min-w-0 space-y-1">
+                    <input type="file" id="file-sub-0" accept="image/*" onchange="handleImageFile(this, 'sub', 0)" class="text-[10px] text-gray-600 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:bg-gray-200 hover:file:bg-gray-300 cursor-pointer w-full">
+                    <input type="url" id="url-sub-0" oninput="handleImageUrl(this, 'sub', 0)" placeholder="Hoặc link URL..." class="w-full px-2 py-0.5 text-[11px] border border-gray-300 rounded outline-none">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sub Photo 2 -->
+              <div class="bg-white p-2.5 rounded-xl border border-gray-200 space-y-1.5">
+                <div class="flex items-center justify-between text-[11px] font-semibold text-gray-600">
+                  <span>Ảnh phụ 2 (Nội thất / Chi tiết)</span>
+                  <span class="text-[10px] text-gray-400">Cửa gỗ / Phù điêu</span>
+                </div>
+                <div class="flex gap-2 items-center">
+                  <div class="w-14 h-14 rounded-lg bg-gray-100 border border-gray-300 overflow-hidden flex items-center justify-center flex-shrink-0">
+                    <img id="preview-sub-1" src="" class="w-full h-full object-cover hidden">
+                    <span id="preview-sub-placeholder-1" class="text-[9px] text-gray-400">Ảnh 2</span>
+                  </div>
+                  <div class="flex-1 min-w-0 space-y-1">
+                    <input type="file" id="file-sub-1" accept="image/*" onchange="handleImageFile(this, 'sub', 1)" class="text-[10px] text-gray-600 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:bg-gray-200 hover:file:bg-gray-300 cursor-pointer w-full">
+                    <input type="url" id="url-sub-1" oninput="handleImageUrl(this, 'sub', 1)" placeholder="Hoặc link URL..." class="w-full px-2 py-0.5 text-[11px] border border-gray-300 rounded outline-none">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sub Photo 3 -->
+              <div class="bg-white p-2.5 rounded-xl border border-gray-200 space-y-1.5">
+                <div class="flex items-center justify-between text-[11px] font-semibold text-gray-600">
+                  <span>Ảnh phụ 3 (Hiện vật / Di sản)</span>
+                  <span class="text-[10px] text-gray-400">Bản đồ / Tượng</span>
+                </div>
+                <div class="flex gap-2 items-center">
+                  <div class="w-14 h-14 rounded-lg bg-gray-100 border border-gray-300 overflow-hidden flex items-center justify-center flex-shrink-0">
+                    <img id="preview-sub-2" src="" class="w-full h-full object-cover hidden">
+                    <span id="preview-sub-placeholder-2" class="text-[9px] text-gray-400">Ảnh 3</span>
+                  </div>
+                  <div class="flex-1 min-w-0 space-y-1">
+                    <input type="file" id="file-sub-2" accept="image/*" onchange="handleImageFile(this, 'sub', 2)" class="text-[10px] text-gray-600 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:bg-gray-200 hover:file:bg-gray-300 cursor-pointer w-full">
+                    <input type="url" id="url-sub-2" oninput="handleImageUrl(this, 'sub', 2)" placeholder="Hoặc link URL..." class="w-full px-2 py-0.5 text-[11px] border border-gray-300 rounded outline-none">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sub Photo 4 -->
+              <div class="bg-white p-2.5 rounded-xl border border-gray-200 space-y-1.5">
+                <div class="flex items-center justify-between text-[11px] font-semibold text-gray-600">
+                  <span>Ảnh phụ 4 (Góc trải nghiệm)</span>
+                  <span class="text-[10px] text-gray-400">Du khách / Check-in</span>
+                </div>
+                <div class="flex gap-2 items-center">
+                  <div class="w-14 h-14 rounded-lg bg-gray-100 border border-gray-300 overflow-hidden flex items-center justify-center flex-shrink-0">
+                    <img id="preview-sub-3" src="" class="w-full h-full object-cover hidden">
+                    <span id="preview-sub-placeholder-3" class="text-[9px] text-gray-400">Ảnh 4</span>
+                  </div>
+                  <div class="flex-1 min-w-0 space-y-1">
+                    <input type="file" id="file-sub-3" accept="image/*" onchange="handleImageFile(this, 'sub', 3)" class="text-[10px] text-gray-600 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:bg-gray-200 hover:file:bg-gray-300 cursor-pointer w-full">
+                    <input type="url" id="url-sub-3" oninput="handleImageUrl(this, 'sub', 3)" placeholder="Hoặc link URL..." class="w-full px-2 py-0.5 text-[11px] border border-gray-300 rounded outline-none">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Audio Source & Auto QR Code -->
+        <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl space-y-2">
+          <div class="flex items-center gap-2 text-heritage-navy font-bold">
+            <i data-lucide="radio" class="w-4 h-4 text-heritage-accent"></i>
+            <span>Âm thanh Audio Guide & Mã QR</span>
+          </div>
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Đường dẫn tệp Audio (Google Drive / Mp3 trực tuyến) <span class="text-red-500">*</span></label>
+            <input type="url" id="form-audio" required placeholder="https://drive.google.com/file/d/... hoặc link mp3 trực tiếp" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-heritage-navy outline-none text-xs">
+            <p class="text-[11px] text-gray-500 mt-1">Hệ thống sẽ <b>tự động tạo mã QR</b> từ link này cho nhóm tải về dán lên bảng Canva A4!</p>
+          </div>
+        </div>
+
+        <!-- English Script -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="font-semibold text-gray-700">Kịch bản Tiếng Anh (English Script - 80 đến 110 từ) <span class="text-red-500">*</span></label>
+            <span class="text-xs text-gray-400 font-mono" id="word-count-badge">0 từ</span>
+          </div>
+          <textarea id="form-script-en" rows="5" required onkeyup="updateWordCount()" placeholder="Nhập kịch bản 5 bước:
+1. Hook (Chào hỏi & câu hỏi tò mò)
+2. Location (Vị trí di tích)
+3. History/Architecture (Năm xây dựng, nét đẹp)
+4. Fun fact (Một điều thú vị)
+5. Advice (Lời khuyên & lời chào kết)..." class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-heritage-navy outline-none text-xs sm:text-sm leading-relaxed"></textarea>
+          <div class="flex items-center justify-between text-[11px] text-gray-500 mt-1">
+            <span>Khung chuẩn lớp 8: Hook → Location → Architecture → Fun Fact → Advice</span>
+            <button type="button" onclick="fillTemplateScript()" class="text-heritage-navy hover:underline font-semibold">Chèn khung kịch bản gợi ý</button>
+          </div>
+        </div>
+
+        <!-- Vietnamese Summary (Accessible for visitors) -->
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Tóm tắt tiếng Việt (Chữ lớn cho bảng A4 & người nghe kém) <span class="text-red-500">*</span></label>
+          <textarea id="form-script-vn" rows="3" required placeholder="Tóm tắt ngắn gọn 2 - 3 câu tiếng Việt giới thiệu nét độc đáo của di tích để du khách đọc nhanh..." class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-heritage-navy outline-none"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-2 flex justify-end gap-3">
+          <button type="button" onclick="closeEditModal()" class="px-5 py-2.5 rounded-lg border border-gray-300 font-semibold text-gray-600 hover:bg-gray-100 transition">Hủy</button>
+          <button type="submit" class="px-6 py-2.5 bg-heritage-navy hover:bg-blue-900 text-white font-semibold rounded-lg shadow-md transition flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-heritage-gold"></i>
+            <span>Lưu & Xuất bản lên Trang Web</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Photo Lightbox Modal -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="max-w-4xl w-full text-center relative animate-fade-in">
+      <button onclick="closeLightbox()" class="absolute -top-10 right-0 text-white/80 hover:text-white p-2">
+        <i data-lucide="x" class="w-7 h-7"></i>
+      </button>
+      <img id="lightbox-img" src="" class="max-h-[80vh] mx-auto rounded-xl shadow-2xl object-contain border border-white/10">
+      <p id="lightbox-caption" class="text-white text-sm mt-3 font-medium"></p>
+    </div>
+  </div>
+
+  <!-- QR Preview Modal -->
+  <div id="qr-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl animate-fade-in relative">
+      <button onclick="closeQrModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div class="w-12 h-12 bg-blue-50 text-heritage-navy rounded-full flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="qr-code" class="w-6 h-6"></i>
+      </div>
+      <h4 id="qr-modal-title" class="font-bold text-lg text-heritage-navy mb-1">Mã QR Audio Guide</h4>
+      <p id="qr-modal-desc" class="text-xs text-gray-500 mb-4">Dùng camera điện thoại để quét và nghe bài thuyết minh trực tiếp</p>
+      
+      <div id="qr-code-canvas" class="flex justify-center p-4 bg-white border border-gray-200 rounded-xl shadow-inner mx-auto mb-4 w-[210px] h-[210px] items-center"></div>
+
+      <div class="text-xs font-medium text-heritage-accent break-all px-2 py-1 bg-orange-50 rounded border border-orange-200 mb-4" id="qr-modal-link"></div>
+
+      <button onclick="downloadQrCode()" class="w-full py-2.5 bg-heritage-navy hover:bg-blue-900 text-white font-semibold rounded-lg text-sm transition flex items-center justify-center gap-2 shadow-md">
+        <i data-lucide="download" class="w-4 h-4"></i>
+        <span>Tải mã QR (PNG) về máy</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-heritage-navy text-gray-300 py-10 border-t border-blue-950 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3 text-center md:text-left">
+        <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-heritage-gold">
+          <i data-lucide="school" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="text-white font-bold text-sm">HỘI THI THIẾT KẾ CHỦ ĐỀ DẠY HỌC STEM & DẠY HỌC SỐ NĂM HỌC 2026 - 2027</div>
+          <div class="text-xs text-gray-400">Sở Giáo dục và Đào tạo Thành phố Hồ Chí Minh • Môn Tiếng Anh 8 (Global Success)</div>
+        </div>
+      </div>
+      <div class="text-xs text-gray-400 text-center md:text-right">
+        Xây dựng theo định hướng Chương trình GDPT 2018 & Công văn 5512/BGDĐT-GDTrH.<br>
+        Bản quyền thuộc Dự án Giáo dục Di sản Sài Gòn.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Script -->
+  <script>
+    // 4 Landmarks with completely BLANK Main Image and Sub Images for students to upload!
+        const initialSites = [
+      {
+        id: "site-1",
+        titleVn: "Bưu điện Trung tâm Sài Gòn",
+        titleEn: "Saigon Central Post Office",
+        district: "Quận 1",
+        group: "Nhóm 1 - Heritage Ambassadors",
+        studentClass: "Lớp 8A1",
+        mainImage: "post_office.jpg",
+        subImages: [
+          "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=400&q=80"
+        ],
+        audioUrl: "https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverending_Story.mp3",
+        scriptEn: "Hello and welcome to Ho Chi Minh City! Do you know which building looks like a classic European train station? It is the Saigon Central Post Office, located in the heart of District 1, right next to Notre Dame Cathedral. This famous monument was built between 1886 and 1891 during the French period. Inside, you can see a magnificent arched ceiling and historic wooden telephone booths. Many visitors still come here every day to write and send traditional postcards to their families around the world! You should take some nice photos here and remember to keep the place clean. Thank you and enjoy your trip in Saigon!",
+        scriptVn: "Bưu điện Trung tâm Sài Gòn là công trình kiến trúc biểu tượng tuyệt đẹp xây dựng từ 1886 - 1891. Nổi bật với mái vòm cong lớn kiểu châu Âu và những quầy điện thoại gỗ cổ kính vẫn còn được bảo tồn nguyên vẹn.",
+        dateAdded: "2026-11-14"
+      },
+      {
+        id: "site-2",
+        titleVn: "Nhà thờ Đức Bà Sài Gòn",
+        titleEn: "Notre Dame Cathedral of Saigon",
+        district: "Quận 1",
+        group: "Nhóm 2 - Golden Bell",
+        studentClass: "Lớp 8A1",
+        mainImage: "notre_dame.jpg",
+        subImages: [
+          "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=400&q=80"
+        ],
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        scriptEn: "Standing gracefully in Paris Square, Notre Dame Cathedral is a famous architectural symbol of Ho Chi Minh City. It was constructed between 1877 and 1880 with all red bricks imported directly from Marseille, France. The cathedral has two impressive bell towers that reach nearly 60 meters into the sky. Fun fact: The exterior red bricks have kept their bright color for more than 140 years without any plastering! When visiting, you should speak quietly to preserve the peaceful atmosphere. Have a wonderful visit!",
+        scriptVn: "Nhà thờ Đức Bà được xây dựng từ năm 1877 với toàn bộ gạch đỏ được vận chuyển trực tiếp từ Pháp sang. Hai tháp chuông cao gần 60m là biểu tượng kiêu hãnh của khu vực trung tâm Quận 1.",
+        dateAdded: "2026-11-14"
+      },
+      {
+        id: "site-3",
+        titleVn: "Chợ Bến Thành",
+        titleEn: "Ben Thanh Market",
+        district: "Quận 1",
+        group: "Nhóm 3 - Saigon Explorers",
+        studentClass: "Lớp 8A2",
+        mainImage: "ben_thanh.jpg",
+        subImages: [
+          "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=400&q=80"
+        ],
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+        scriptEn: "Welcome to Ben Thanh Market, the most vibrant trading landmark in Ho Chi Minh City! Opened in 1914, its iconic south clock tower has become a beloved symbol recognized worldwide. Inside, you can discover hundreds of lively stalls selling local food, silk, coffee, and traditional handicrafts. Here is a helpful tip: Don't miss trying a bowl of authentic southern noodle soup or fresh tropical fruit desserts! You should also practice friendly bargaining with the local vendors. Enjoy the colorful sights, sounds, and flavors of Saigon!",
+        scriptVn: "Chợ Bến Thành khánh thành năm 1914, nổi bật với tháp đồng hồ bốn mặt ở cửa Nam. Đây là trung tâm giao thương sầm uất và điểm thưởng thức ẩm thực truyền thống không thể bỏ qua.",
+        dateAdded: "2026-11-14"
+      },
+      {
+        id: "site-4",
+        titleVn: "Bến Nhà Rồng - Bảo tàng Hồ Chí Minh",
+        titleEn: "Dragon Wharf - Ho Chi Minh Museum",
+        district: "Quận 4",
+        group: "Nhóm 4 - Young Pioneers",
+        studentClass: "Lớp 8A2",
+        mainImage: "dragon_wharf.jpg",
+        subImages: [
+          "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=400&q=80",
+          "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"
+        ],
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+        scriptEn: "Welcome to Dragon Wharf, officially known as the Ho Chi Minh Museum, situated along the Saigon River in District 4. Originally built in 1863 as a commercial port headquarters, the rooftop features two distinct ceramic dragon statues. This site holds tremendous historical significance: On June 5th, 1911, young patriot Nguyen Tat Thanh set sail abroad to find a path for national liberation. Today, it preserves thousands of precious artifacts, documents, and photographs of President Ho Chi Minh's life. Please visit respectfully and explore our history!",
+        scriptVn: "Bến Nhà Rồng được xây dựng năm 1863 bên sông Sài Gòn, nổi bật với đôi rồng gốm trên nóc. Nơi đây gắn liền với sự kiện Bác Hồ ra đi tìm đường cứu nước vào ngày 05/06/1911.",
+        dateAdded: "2026-11-14"
+      }
+    ];
+
+    const STORAGE_KEY = "saigon_heritage_sites_client_demo_v1";
+
+    function getPlaces() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          return initialSites;
+        }
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(initialSites));
+      return initialSites;
+    }
+
+    let isLargeFont = false;
+
+    function toggleAccessibilityMode() {
+      isLargeFont = !isLargeFont;
+      const btn = document.getElementById('access-btn');
+      if (isLargeFont) {
+        document.body.classList.add('text-lg');
+        btn.classList.add('bg-heritage-navy', 'text-white', 'border-heritage-navy');
+        btn.classList.remove('text-gray-700', 'border-gray-300');
+      } else {
+        document.body.classList.remove('text-lg');
+        btn.classList.remove('bg-heritage-navy', 'text-white', 'border-heritage-navy');
+        btn.classList.add('text-gray-700', 'border-gray-300');
+      }
+      renderPlaces();
+    }
+
+    function resetAllToBlank() {
+      if (confirm("Thầy/Cô có chắc chắn muốn đặt lại cả 4 di tích về trạng thái ban đầu để học sinh nộp bài mới không?")) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(initialSites));
+        renderPlaces();
+        alert("Đã đặt lại 4 di tích về trạng thái chờ học sinh nộp bài và tải ảnh!");
+      }
+    }
+
+    // Compress image file to dataURL using Canvas to keep localStorage light
+    function compressImageFile(file, maxWidth, quality, callback) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', quality);
+          callback(dataUrl);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Temporary storage for image uploads during modal editing
+    let currentMainImg = "";
+    let currentSubImgs = ["", "", "", ""];
+
+    function handleImageFile(input, type, subIndex = 0) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        if (type === 'main') {
+          compressImageFile(file, 900, 0.75, function(dataUrl) {
+            currentMainImg = dataUrl;
+            document.getElementById('preview-main').src = dataUrl;
+            document.getElementById('preview-main').classList.remove('hidden');
+            document.getElementById('preview-main-placeholder').classList.add('hidden');
+            document.getElementById('url-main').value = "";
+          });
+        } else {
+          compressImageFile(file, 600, 0.7, function(dataUrl) {
+            currentSubImgs[subIndex] = dataUrl;
+            document.getElementById(`preview-sub-${subIndex}`).src = dataUrl;
+            document.getElementById(`preview-sub-${subIndex}`).classList.remove('hidden');
+            document.getElementById(`preview-sub-placeholder-${subIndex}`).classList.add('hidden');
+            document.getElementById(`url-sub-${subIndex}`).value = "";
+          });
+        }
+      }
+    }
+
+    function handleImageUrl(input, type, subIndex = 0) {
+      const url = input.value.trim();
+      if (!url) return;
+      if (type === 'main') {
+        currentMainImg = url;
+        document.getElementById('preview-main').src = url;
+        document.getElementById('preview-main').classList.remove('hidden');
+        document.getElementById('preview-main-placeholder').classList.add('hidden');
+      } else {
+        currentSubImgs[subIndex] = url;
+        document.getElementById(`preview-sub-${subIndex}`).src = url;
+        document.getElementById(`preview-sub-${subIndex}`).classList.remove('hidden');
+        document.getElementById(`preview-sub-placeholder-${subIndex}`).classList.add('hidden');
+      }
+    }
+
+    // Lightbox modal for full-size viewing
+    function openLightbox(imgSrc, caption) {
+      if (!imgSrc) return;
+      document.getElementById('lightbox-img').src = imgSrc;
+      document.getElementById('lightbox-caption').innerText = caption || "Ảnh di tích";
+      document.getElementById('lightbox-modal').classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.add('hidden');
+    }
+
+    // Render Cards
+    function renderPlaces(filterText = "", filterStatus = "all") {
+      const places = getPlaces();
+      const grid = document.getElementById('places-grid');
+      grid.innerHTML = "";
+
+      let submittedCount = 0;
+
+      const filtered = places.filter(item => {
+        const hasContent = item.scriptEn && item.scriptEn.trim().length > 0;
+        if (hasContent) submittedCount++;
+
+        const matchText = (item.titleVn + " " + item.titleEn + " " + item.group + " " + item.district).toLowerCase().includes(filterText.toLowerCase());
+        const matchStatus = filterStatus === "all" || (filterStatus === "completed" && hasContent) || (filterStatus === "pending" && !hasContent);
+        return matchText && matchStatus;
+      });
+
+      document.getElementById('stat-submitted-count').innerText = `${submittedCount} / 4`;
+      document.getElementById('place-count-badge').innerText = `Đang hiển thị ${filtered.length} di tích`;
+
+      filtered.forEach((site, index) => {
+        const hasContent = site.scriptEn && site.scriptEn.trim().length > 0;
+        const hasMainImage = site.mainImage && site.mainImage.trim().length > 0;
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col group";
+
+        const subImages = site.subImages || ["", "", "", ""];
+        const validSubCount = subImages.filter(img => img && img.trim().length > 0).length;
+
+        card.innerHTML = `
+          <!-- Main Photo Banner (Custom or Blank Placeholder) -->
+          <div class="relative h-60 overflow-hidden bg-slate-800 cursor-pointer" onclick="${hasMainImage ? `openLightbox('${site.mainImage}', '${site.titleVn} - Ảnh chính diện')` : `openEditModal('${site.id}')`}">
+            
+            ${hasMainImage ? `
+              <!-- Group uploaded Main Image -->
+              <img src="${site.mainImage}" alt="${site.titleVn}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+              
+              <span class="absolute top-3 left-3 bg-white/95 backdrop-blur text-heritage-navy px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                Trạm ${index + 1} • ${site.district}
+              </span>
+
+              <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold backdrop-blur shadow-sm ${hasContent ? 'bg-emerald-500/90 text-white' : 'bg-amber-500/90 text-white'}">
+                ${hasContent ? '✓ Đã có bài nộp' : '⏳ Chờ nộp bài'}
+              </span>
+
+              <div class="absolute bottom-3 left-3 right-3 text-white flex items-end justify-between">
+                <div>
+                  <h4 class="font-serif font-bold text-xl leading-tight">${site.titleVn}</h4>
+                  <p class="text-xs text-gray-200 italic font-light">${site.titleEn}</p>
+                </div>
+                <span class="text-[10px] bg-black/40 backdrop-blur px-2 py-1 rounded text-gray-200 flex items-center gap-1">
+                  <i data-lucide="maximize-2" class="w-3 h-3"></i> Phóng to ảnh
+                </span>
+              </div>
+            ` : `
+              <!-- BLANK / EMPTY MAIN PHOTO PLACEHOLDER -->
+              <div class="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 relative">
+                <span class="absolute top-3 left-3 bg-white/95 backdrop-blur text-heritage-navy px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                  Trạm ${index + 1} • ${site.district}
+                </span>
+
+                <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold backdrop-blur shadow-sm bg-amber-500 text-white">
+                  ⏳ Chờ nộp ảnh & bài
+                </span>
+
+                <div class="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-heritage-gold mb-2 shadow-inner group-hover:scale-110 transition-transform">
+                  <i data-lucide="camera" class="w-7 h-7"></i>
+                </div>
+                <span class="text-xs font-bold text-heritage-gold uppercase tracking-wider">Chưa có ảnh chính diện</span>
+                <p class="text-[11px] text-gray-300 mt-0.5">Nhóm bấm vào đây để tải ảnh chụp chính diện của di tích</p>
+
+                <div class="absolute bottom-3 left-3 right-3 text-left">
+                  <h4 class="font-serif font-bold text-lg text-white leading-tight">${site.titleVn}</h4>
+                  <p class="text-xs text-gray-300 italic font-light">${site.titleEn}</p>
+                </div>
+              </div>
+            `}
+          </div>
+
+          <!-- 4 Sub Photos Gallery Row -->
+          <div class="px-5 pt-3.5 pb-2 bg-gray-50 border-b border-gray-100">
+            <div class="flex items-center justify-between text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2">
+              <span class="flex items-center gap-1">
+                <i data-lucide="images" class="w-3.5 h-3.5 text-heritage-accent"></i>
+                4 Ảnh chi tiết của nhóm:
+              </span>
+              <span class="text-heritage-navy font-semibold">${validSubCount} / 4 ảnh</span>
+            </div>
+
+            <div class="grid grid-cols-4 gap-2.5">
+              ${[0, 1, 2, 3].map(i => {
+                const imgUrl = subImages[i];
+                if (imgUrl && imgUrl.trim().length > 0) {
+                  return `
+                    <div class="relative h-16 rounded-xl overflow-hidden bg-gray-200 border border-gray-200 shadow-sm hover:ring-2 hover:ring-heritage-navy cursor-pointer transition group/sub" onclick="openLightbox('${imgUrl}', '${site.titleVn} - Ảnh phụ ${i+1}')">
+                      <img src="${imgUrl}" class="w-full h-full object-cover group-hover/sub:scale-110 transition-transform duration-300">
+                      <span class="absolute bottom-1 right-1 bg-black/60 text-white text-[9px] px-1 rounded font-mono">#${i+1}</span>
+                    </div>
+                  `;
+                } else {
+                  return `
+                    <div onclick="openEditModal('${site.id}')" class="h-16 rounded-xl border border-dashed border-gray-300 bg-white hover:bg-blue-50/50 flex flex-col items-center justify-center cursor-pointer transition text-gray-400 hover:text-heritage-navy group/slot" title="Bấm để tải ảnh phụ ${i+1}">
+                      <i data-lucide="plus" class="w-4 h-4 text-gray-400 group-hover/slot:text-heritage-navy"></i>
+                      <span class="text-[9px] font-medium mt-0.5">Ảnh ${i+1}</span>
+                    </div>
+                  `;
+                }
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Card Body -->
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+            
+            ${hasContent ? `
+              <!-- HAS SUBMISSION -->
+              <div class="flex items-center justify-between text-xs text-gray-500 pb-2 border-b border-gray-100">
+                <span class="font-bold text-heritage-navy flex items-center gap-1.5">
+                  <i data-lucide="users" class="w-4 h-4 text-heritage-accent"></i>
+                  ${site.group}
+                </span>
+                <span class="bg-blue-50 text-heritage-navy px-2.5 py-0.5 rounded font-semibold border border-blue-100">${site.studentClass}</span>
+              </div>
+
+              <!-- Audio Player -->
+              <div class="bg-blue-50/70 p-3.5 rounded-xl border border-blue-100">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-xs font-bold text-heritage-navy flex items-center gap-1.5">
+                    <i data-lucide="volume-2" class="w-4 h-4 text-heritage-accent"></i>
+                    Audio Guide của nhóm
+                  </span>
+                  <button onclick="showQrModal('${site.titleEn}', '${site.audioUrl}')" class="text-[11px] font-bold text-heritage-navy hover:underline flex items-center gap-1">
+                    <i data-lucide="qr-code" class="w-3.5 h-3.5"></i>
+                    Quét mã QR
+                  </button>
+                </div>
+                <audio controls class="w-full h-8" preload="none">
+                  <source src="${site.audioUrl}" type="audio/mpeg">
+                  Trình duyệt không hỗ trợ phát âm thanh.
+                </audio>
+              </div>
+
+              <!-- English Script Transcript -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold uppercase tracking-wider text-gray-400">Kịch bản Tiếng Anh (English Script)</span>
+                  <span class="text-[11px] text-gray-400 font-mono">${site.scriptEn.trim().split(/\s+/).length} từ</span>
+                </div>
+                
+                <div class="p-3.5 bg-gray-50 rounded-xl text-xs leading-relaxed text-gray-700 border border-gray-100 max-h-40 overflow-y-auto custom-scrollbar">
+                  <p class="font-serif italic text-heritage-navy mb-2">"${site.scriptEn}"</p>
+                  
+                  ${site.scriptVn ? `
+                    <div class="mt-2.5 pt-2 border-t border-gray-200 text-gray-600">
+                      <div class="font-semibold text-gray-700 mb-0.5">Tóm tắt tiếng Việt:</div>
+                      <p class="${isLargeFont ? 'text-base font-medium text-heritage-navy' : 'text-xs'}">${site.scriptVn}</p>
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+
+              <!-- Footer action button -->
+              <div class="pt-2 flex items-center justify-between border-t border-gray-100">
+                <button onclick="showQrModal('${site.titleEn}', '${site.audioUrl}')" class="text-xs font-bold text-heritage-navy hover:text-blue-900 flex items-center gap-1.5">
+                  <i data-lucide="smartphone" class="w-4 h-4 text-heritage-gold"></i>
+                  <span>Xem mã QR điện thoại</span>
+                </button>
+
+                <button onclick="openEditModal('${site.id}')" class="px-3.5 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition">
+                  <i data-lucide="edit" class="w-3.5 h-3.5"></i>
+                  <span>Chỉnh sửa kịch bản & ảnh</span>
+                </button>
+              </div>
+
+            ` : `
+              <!-- EMPTY / PENDING SUBMISSION STATE -->
+              <div class="border-2 border-dashed border-blue-200 rounded-xl p-6 text-center bg-blue-50/40 flex-1 flex flex-col items-center justify-center space-y-3">
+                <div class="w-12 h-12 rounded-full bg-white text-heritage-navy flex items-center justify-center shadow-sm">
+                  <i data-lucide="upload-cloud" class="w-6 h-6 text-heritage-navy"></i>
+                </div>
+                <div>
+                  <h5 class="font-bold text-heritage-navy text-sm">Chưa có bài thuyết minh & bộ ảnh</h5>
+                  <p class="text-xs text-gray-500 mt-1 max-w-xs">
+                    Ảnh chính diện, 4 ảnh phụ và kịch bản đang để trống. Nhóm phụ trách di tích này vui lòng bấm nút bên dưới để tải ảnh và nộp bài.
+                  </p>
+                </div>
+                <button onclick="openEditModal('${site.id}')" class="px-5 py-2.5 bg-heritage-navy hover:bg-blue-900 text-white rounded-xl text-xs font-bold shadow-md hover:shadow-lg transition flex items-center gap-2">
+                  <i data-lucide="plus-circle" class="w-4 h-4 text-heritage-gold"></i>
+                  <span>Nhóm tải ảnh & Nhập bài</span>
+                </button>
+              </div>
+            `}
+
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    // Filter functionality
+    function filterPlaces() {
+      const query = document.getElementById('search-input').value;
+      const status = document.getElementById('status-filter').value;
+      renderPlaces(query, status);
+    }
+
+    // Modal Edit Handlers
+    function openEditModal(siteId) {
+      const places = getPlaces();
+      const site = places.find(p => p.id === siteId);
+      if (!site) return;
+
+      document.getElementById('modal-site-id').value = site.id;
+      document.getElementById('modal-site-title').innerText = `${site.titleVn} (${site.titleEn})`;
+      
+      document.getElementById('form-group').value = site.group || "";
+      document.getElementById('form-class').value = site.studentClass || "";
+      document.getElementById('form-audio').value = site.audioUrl || "";
+      document.getElementById('form-script-en').value = site.scriptEn || "";
+      document.getElementById('form-script-vn').value = site.scriptVn || "";
+
+      // Load Main Image
+      currentMainImg = site.mainImage || "";
+      document.getElementById('url-main').value = (currentMainImg && !currentMainImg.startsWith('data:')) ? currentMainImg : "";
+      if (currentMainImg) {
+        document.getElementById('preview-main').src = currentMainImg;
+        document.getElementById('preview-main').classList.remove('hidden');
+        document.getElementById('preview-main-placeholder').classList.add('hidden');
+      } else {
+        document.getElementById('preview-main').classList.add('hidden');
+        document.getElementById('preview-main-placeholder').classList.remove('hidden');
+      }
+
+      // Load 4 Sub Images
+      const subs = site.subImages || ["", "", "", ""];
+      currentSubImgs = [...subs];
+      for (let i = 0; i < 4; i++) {
+        const subUrl = currentSubImgs[i] || "";
+        document.getElementById(`url-sub-${i}`).value = (subUrl && !subUrl.startsWith('data:')) ? subUrl : "";
+        if (subUrl) {
+          document.getElementById(`preview-sub-${i}`).src = subUrl;
+          document.getElementById(`preview-sub-${i}`).classList.remove('hidden');
+          document.getElementById(`preview-sub-placeholder-${i}`).classList.add('hidden');
+        } else {
+          document.getElementById(`preview-sub-${i}`).classList.add('hidden');
+          document.getElementById(`preview-sub-placeholder-${i}`).classList.remove('hidden');
+        }
+      }
+
+      updateWordCount();
+      document.getElementById('edit-modal').classList.remove('hidden');
+    }
+
+    function closeEditModal() {
+      document.getElementById('edit-modal').classList.add('hidden');
+    }
+
+    function updateWordCount() {
+      const text = document.getElementById('form-script-en').value.trim();
+      const count = text ? text.split(/\s+/).length : 0;
+      const badge = document.getElementById('word-count-badge');
+      badge.innerText = `${count} từ`;
+      if (count >= 80 && count <= 110) {
+        badge.className = "text-xs text-emerald-600 font-bold font-mono";
+      } else {
+        badge.className = "text-xs text-gray-400 font-mono";
+      }
+    }
+
+    function fillTemplateScript() {
+      const siteId = document.getElementById('modal-site-id').value;
+      const places = getPlaces();
+      const site = places.find(p => p.id === siteId);
+
+      const template = `Hello and welcome to Ho Chi Minh City! Do you know which place is famous for its unique architecture? It is the ${site ? site.titleEn : "heritage site"}, located right in the heart of the city. This magnificent landmark was built many years ago and has attracted thousands of visitors from all over the world. Here is a fun fact: Many tourists love taking beautiful photos and discovering its traditional charm! You should visit this place and remember to protect our heritage. Thank you and have a wonderful trip in Saigon!`;
+      
+      document.getElementById('form-script-en').value = template;
+      updateWordCount();
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const siteId = document.getElementById('modal-site-id').value;
+      const places = getPlaces();
+      const idx = places.findIndex(p => p.id === siteId);
+
+      if (idx !== -1) {
+        places[idx].group = document.getElementById('form-group').value.trim();
+        places[idx].studentClass = document.getElementById('form-class').value.trim();
+        places[idx].audioUrl = document.getElementById('form-audio').value.trim();
+        places[idx].scriptEn = document.getElementById('form-script-en').value.trim();
+        places[idx].scriptVn = document.getElementById('form-script-vn').value.trim();
+        places[idx].mainImage = currentMainImg || "";
+        places[idx].subImages = [...currentSubImgs];
+        places[idx].dateAdded = new Date().toISOString().split('T')[0];
+
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(places));
+        } catch (err) {
+          alert("Dung lượng ảnh tải lên hơi lớn. Vui lòng chọn ảnh dung lượng nhẹ hơn hoặc dán link URL!");
+          return;
+        }
+
+        closeEditModal();
+        renderPlaces();
+        alert(`Chúc mừng ${places[idx].group}! Ảnh chính diện, 4 ảnh phụ, Kịch bản và Audio của di tích "${places[idx].titleVn}" đã được xuất bản thành công lên website!`);
+      }
+    }
+
+    // QR Code Modal
+    let currentQrUrl = "";
+    function showQrModal(title, url) {
+      if (!url) {
+        alert("Nhóm chưa cập nhật đường dẫn âm thanh nên chưa thể tạo mã QR!");
+        return;
+      }
+      currentQrUrl = url;
+      document.getElementById('qr-modal-title').innerText = title;
+      document.getElementById('qr-modal-link').innerText = url;
+      const canvas = document.getElementById('qr-code-canvas');
+      canvas.innerHTML = "";
+
+      new QRCode(canvas, {
+        text: url,
+        width: 180,
+        height: 180,
+        colorDark : "#002B49",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+
+      document.getElementById('qr-modal').classList.remove('hidden');
+    }
+
+    function closeQrModal() {
+      document.getElementById('qr-modal').classList.add('hidden');
+    }
+
+    function downloadQrCode() {
+      const img = document.querySelector('#qr-code-canvas img');
+      if (img && img.src) {
+        const link = document.createElement('a');
+        link.download = `QR_Code_${document.getElementById('qr-modal-title').innerText}.png`;
+        link.href = img.src;
+        link.click();
+      } else {
+        alert("Không thể tải mã QR lúc này. Bạn có thể chụp màn hình mã QR.");
+      }
+    }
+
+    // Initial render
+    window.onload = () => {
+      renderPlaces();
+      lucide.createIcons();
+    };
+  </script>
+</body>
+</html>

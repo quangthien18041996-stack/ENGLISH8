@@ -1664,10 +1664,10 @@
       const canvas = document.getElementById('pres-zoom-qr-canvas');
       canvas.innerHTML = "";
 
-      let targetUrl = `infographic.html?site=${site.id}`;
+      let targetUrl = `https://quangthien18041996-stack.github.io/ENGLISH8/infographic.html?site=${site.id}`;
       try {
         const loc = window.location;
-        if (loc.protocol !== 'file:') {
+        if (loc.protocol !== 'file:' && loc.origin && !loc.origin.includes('null')) {
           targetUrl = `${loc.origin}${loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1)}infographic.html?site=${site.id}`;
         }
       } catch(e) {}
@@ -2088,10 +2088,10 @@
       const qrBox = document.getElementById('pres-qr-box');
       qrBox.innerHTML = "";
       try {
-        let targetUrl = `infographic.html?site=${site.id}`;
+        let targetUrl = `https://quangthien18041996-stack.github.io/ENGLISH8/infographic.html?site=${site.id}`;
         try {
           const loc = window.location;
-          if (loc.protocol !== 'file:') {
+          if (loc.protocol !== 'file:' && loc.origin && !loc.origin.includes('null')) {
             targetUrl = `${loc.origin}${loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1)}infographic.html?site=${site.id}`;
           }
         } catch(e) {}
@@ -2781,10 +2781,10 @@
       currentQrSiteId = siteId;
       
       // Determine QR target URL
-      let targetUrl = `infographic.html?site=${siteId}`;
+      let targetUrl = `https://quangthien18041996-stack.github.io/ENGLISH8/infographic.html?site=${siteId}`;
       try {
         const loc = window.location;
-        if (loc.protocol !== 'file:') {
+        if (loc.protocol !== 'file:' && loc.origin && !loc.origin.includes('null')) {
           targetUrl = `${loc.origin}${loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1)}infographic.html?site=${siteId}`;
         }
       } catch(e) {}

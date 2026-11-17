@@ -27,12 +27,12 @@ def build_part_2_grade8(filename=None):
     c_l.width = Inches(3.2); c_r.width = Inches(3.5)
 
     p_l = c_l.paragraphs[0]; p_l.alignment = WD_ALIGN_PARAGRAPH.LEFT
-    r = p_l.add_run("Trường: THCS [Tên trường]\n"); r.font.bold = True; r.font.size = Pt(11)
+    r = p_l.add_run("Trường: THCS Hòa Hiệp, TP. Hồ Chí Minh\n"); r.font.bold = True; r.font.size = Pt(11)
     r = p_l.add_run("Tổ bộ môn: Tiếng Anh"); r.font.bold = True; r.font.size = Pt(11)
 
     p_r = c_r.paragraphs[0]; p_r.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     r = p_r.add_run("Họ và tên giáo viên:\n"); r.font.bold = True; r.font.size = Pt(11)
-    r = p_r.add_run("[Họ và tên giáo viên]"); r.font.size = Pt(11)
+    r = p_r.add_run("Trần Thị Thanh Nguyên"); r.font.size = Pt(11)
 
     # Document Reference
     p_ref = doc.add_paragraph()
@@ -586,7 +586,7 @@ def build_part_2_grade8(filename=None):
     r = p.add_run("TP. Hồ Chí Minh, ngày       tháng 11 năm 2026\n"); r.font.italic = True
     r = p.add_run("GIÁO VIÊN SOẠN BÀI DẠY\n"); r.font.bold = True
     r = p.add_run("(Ký và ghi rõ họ tên)\n\n\n\n"); r.font.italic = True
-    r = p.add_run("[Họ và tên giáo viên]"); r.font.bold = True
+    r = p.add_run("Trần Thị Thanh Nguyên"); r.font.bold = True
 
     try:
         doc.save(filename)

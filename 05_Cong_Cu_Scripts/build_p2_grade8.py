@@ -61,7 +61,7 @@ def build_part_2_grade8(filename=None):
     r1.font.bold = True; r1.font.size = Pt(13); r1.font.color.rgb = RGBColor(0x00, 0x33, 0x66)
     r2 = p_box.add_run("SAIGON HERITAGE QR AUDIO GUIDE – VOICES OF OUR COMMUNITY\n")
     r2.font.bold = True; r2.font.size = Pt(13.5); r2.font.color.rgb = RGBColor(0xC0, 0x00, 0x00)
-    r3 = p_box.add_run("Môn học: Tiếng Anh   |   Lớp: 8 (Cấp THCS)   |   Thời gian thực hiện: 02 tiết (90 phút)\n")
+    r3 = p_box.add_run("Môn học: Tiếng Anh   |   Lớp dạy: 8A2 (Cấp THCS)   |   Thời gian thực hiện: 02 tiết (90 phút)\n")
     r3.font.bold = True; r3.font.size = Pt(11.5)
     r4 = p_box.add_run("(Tích hợp Unit 5: Our Customs and Traditions & Unit 11: Science and Technology – Tiếng Anh 8 Global Success)")
     r4.font.italic = True; r4.font.size = Pt(11)

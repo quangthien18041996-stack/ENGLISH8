@@ -18,7 +18,7 @@ def add_header_block(doc, group_num, site_vn, site_en):
 
     p_l = c_l.paragraphs[0]; p_l.alignment = WD_ALIGN_PARAGRAPH.LEFT
     r = p_l.add_run("TRƯỜNG THCS HÒA HIỆP, TP. HỒ CHÍ MINH\n"); r.font.bold = True; r.font.size = Pt(10)
-    r = p_l.add_run("LỚP: 8......  |  TỔ: .........."); r.font.bold = True; r.font.size = Pt(10)
+    r = p_l.add_run("LỚP: 8A2  |  TỔ: .........."); r.font.bold = True; r.font.size = Pt(10)
 
     p_r = c_r.paragraphs[0]; p_r.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     r = p_r.add_run("CHỦ ĐỀ STEM TIẾNG ANH 8\n"); r.font.bold = True; r.font.size = Pt(10)

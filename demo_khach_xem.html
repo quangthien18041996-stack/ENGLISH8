@@ -1444,47 +1444,72 @@
 
     const STORAGE_KEY = "saigon_heritage_authentic_v10";
 
-    function getPlaces() {
-      // Clear legacy storage keys that had broken external audio links
+    function savePlacesToStorage(places) {
       try {
-        localStorage.removeItem("saigon_heritage_sites_complete_v1");
-        localStorage.removeItem("saigon_heritage_sites_v2");
-        localStorage.removeItem("saigon_heritage_sites_audio_v4");
-      } catch(e) {}
-
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        try {
-          const places = JSON.parse(stored);
-          // Auto-repair: Ensure each place uses the embedded audio data
-                    places.forEach(p => {
-            if (!p.audioUrl || !p.audioUrl.startsWith('data:audio/mp3;base64')) {
-              p.audioUrl = AUDIO_MAP[p.id] || "";
-            }
-            // Auto-repair images to authentic local photos
-            const authImgs = {
-              "site-1": { main: "images/post_office_main.jpg", subs: ["images/post_office_sub1.jpg", "images/post_office_sub2.jpg", "images/post_office_sub3.jpg", "images/post_office_sub4.jpg"] },
-              "site-2": { main: "images/notre_dame_main.jpg", subs: ["images/notre_dame_sub1.jpg", "images/notre_dame_sub2.jpg", "images/notre_dame_sub3.jpg", "images/notre_dame_sub4.jpg"] },
-              "site-3": { main: "images/ben_thanh_main.jpg", subs: ["images/ben_thanh_sub1.jpg", "images/ben_thanh_sub2.jpg", "images/ben_thanh_sub3.jpg", "images/ben_thanh_sub4.jpg"] },
-              "site-4": { main: "images/dragon_wharf_main.jpg", subs: ["images/dragon_wharf_sub1.jpg", "images/dragon_wharf_sub2.jpg", "images/dragon_wharf_sub3.jpg", "images/dragon_wharf_sub4.jpg"] }
-            };
-            if (authImgs[p.id]) {
-              p.mainImage = authImgs[p.id].main;
-              p.subImages = authImgs[p.id].subs;
-            }
-          });
-          return places;
-        } catch (e) { 
-          return defaultSites; 
-        }
+        const cleanPlaces = places.map(p => {
+          const copy = { ...p };
+          if (copy.audioUrl && copy.audioUrl.startsWith('data:audio/mp3;base64')) {
+            copy.audioUrl = "";
+          }
+          return copy;
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanPlaces));
+      } catch (err) {
+        console.warn("Storage save skipped or quota reached:", err);
       }
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultSites));
-      return defaultSites;
+    }
+
+    function getPlaces() {
+      // 1. Purge all legacy oversized storage keys to free browser quota immediately
+      try {
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith("saigon_heritage_") && k !== STORAGE_KEY) {
+            keysToRemove.push(k);
+          }
+        }
+        keysToRemove.forEach(k => localStorage.removeItem(k));
+      } catch (e) {}
+
+      // 2. Read stored modifications if present
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const places = JSON.parse(stored);
+          if (Array.isArray(places) && places.length > 0) {
+            places.forEach(p => {
+              p.audioUrl = AUDIO_MAP[p.id] || p.audioUrl || "";
+              const authImgs = {
+                "site-1": { main: "images/post_office_main.jpg", subs: ["images/post_office_sub1.jpg", "images/post_office_sub2.jpg", "images/post_office_sub3.jpg", "images/post_office_sub4.jpg"] },
+                "site-2": { main: "images/notre_dame_main.jpg", subs: ["images/notre_dame_sub1.jpg", "images/notre_dame_sub2.jpg", "images/notre_dame_sub3.jpg", "images/notre_dame_sub4.jpg"] },
+                "site-3": { main: "images/ben_thanh_main.jpg", subs: ["images/ben_thanh_sub1.jpg", "images/ben_thanh_sub2.jpg", "images/ben_thanh_sub3.jpg", "images/ben_thanh_sub4.jpg"] },
+                "site-4": { main: "images/dragon_wharf_main.jpg", subs: ["images/dragon_wharf_sub1.jpg", "images/dragon_wharf_sub2.jpg", "images/dragon_wharf_sub3.jpg", "images/dragon_wharf_sub4.jpg"] }
+              };
+              if (authImgs[p.id]) {
+                p.mainImage = authImgs[p.id].main;
+                p.subImages = authImgs[p.id].subs;
+              }
+            });
+            return places;
+          }
+        }
+      } catch (e) {
+        console.warn("Storage read error, using defaultSites:", e);
+      }
+
+      // 3. Fallback: Always return defaultSites (safe, guaranteed to render)
+      return defaultSites.map(s => ({
+        ...s,
+        audioUrl: AUDIO_MAP[s.id] || s.audioUrl || ""
+      }));
     }
 
     function resetDataToDemo() {
       if (confirm("Reset to full pre-populated demo content for teachers/visitors?")) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultSites));
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch(e) {}
         renderPlaces();
         alert("Demo data reloaded successfully!");
       }
@@ -2068,7 +2093,7 @@
       places[idx].verifiedAt = new Date().toLocaleDateString('vi-VN');
 
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(places));
+        savePlacesToStorage(places);
       } catch(e) {}
 
       // Re-render
@@ -3420,7 +3445,7 @@ Playing English audio guide and displaying 5-step transcript...`);
         places[idx].teacherNotes = "Học sinh vừa nộp/chỉnh sửa nội dung. Đang chờ Giáo viên kiểm duyệt và xác thực dữ liệu.";
 
         try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(places));
+          savePlacesToStorage(places);
         } catch (err) {
           alert("Image file size large. Using URLs is recommended.");
         }

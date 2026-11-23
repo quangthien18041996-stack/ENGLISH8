@@ -1355,6 +1355,7 @@
         district: "Quận 1",
         group: "Group 1 - Heritage Ambassadors",
         studentClass: "Class 8A2",
+        isVerified: false,
         mainImage: "images/post_office_main.jpg",
         subImages: [
           "images/post_office_sub1.jpg",
@@ -1379,6 +1380,7 @@
         district: "Quận 1",
         group: "Group 2 - Golden Bell",
         studentClass: "Class 8A2",
+        isVerified: false,
         mainImage: "images/notre_dame_main.jpg",
         subImages: [
           "images/notre_dame_sub1.jpg",
@@ -1403,6 +1405,7 @@
         district: "Quận 1",
         group: "Group 3 - Saigon Explorers",
         studentClass: "Class 8A2",
+        isVerified: false,
         mainImage: "images/ben_thanh_main.jpg",
         subImages: [
           "images/ben_thanh_sub1.jpg",
@@ -1427,6 +1430,7 @@
         district: "Quận 4",
         group: "Group 4 - Young Pioneers",
         studentClass: "Class 8A2",
+        isVerified: false,
         mainImage: "images/dragon_wharf_main.jpg",
         subImages: [
           "images/dragon_wharf_sub1.jpg",
@@ -1446,7 +1450,7 @@
       }
     ];
 
-    const STORAGE_KEY = "saigon_heritage_authentic_v12";
+    const STORAGE_KEY = "saigon_heritage_authentic_v13";
 
     function savePlacesToStorage(places) {
       try {
@@ -1956,8 +1960,8 @@
       const nav = document.getElementById('teacher-station-tabs');
       nav.innerHTML = places.map((p, idx) => `
         <button onclick="switchTeacherStation('${p.id}')" class="px-2.5 py-2 rounded-xl text-xs font-bold transition flex flex-col items-center gap-1 border cursor-pointer ${p.id === teacherSelectedSiteId ? 'bg-emerald-900 text-white border-emerald-500 shadow-md' : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100'}">
-          <span class="text-[10px] ${p.isVerified !== false ? 'text-emerald-300' : 'text-amber-400 font-bold'}">
-            ${p.isVerified !== false ? '✓ Đã duyệt' : '⏳ Chờ duyệt'}
+          <span class="text-[10px] ${p.isVerified ? 'text-emerald-300' : 'text-amber-400 font-bold'}">
+            ${p.isVerified ? '✓ Đã duyệt' : '⏳ Chờ duyệt'}
           </span>
           <span class="truncate w-full text-center">${idx + 1}. ${isVietnamese ? p.titleVn : p.titleEn}</span>
         </button>
@@ -1982,7 +1986,7 @@
 
       const wordCount = site.scriptEn ? site.scriptEn.trim().split(/\s+/).length : 0;
       const allImages = [site.mainImage, ...(site.subImages || [])];
-      const isApproved = (site.isVerified !== false);
+      const isApproved = Boolean(site.isVerified);
 
       document.getElementById('teacher-review-badge').innerText = `Trạm ${site.id.replace('site-', '')}`;
       document.getElementById('teacher-review-title').innerText = isVietnamese ? site.titleVn : site.titleEn;
@@ -2246,7 +2250,7 @@
 
       const presVerifyEl = document.getElementById('pres-stat-verify');
       if (presVerifyEl) {
-        if (site.isVerified !== false) {
+        if (site.isVerified) {
           presVerifyEl.innerText = "Chuẩn 5512 ✓";
           presVerifyEl.className = "text-sm font-bold text-emerald-400";
         } else {
@@ -2720,7 +2724,7 @@
             </div>
 
             <!-- 3. Kế nữa là Biểu tượng kiểm duyệt (Tích xác thực bởi Giáo viên) -->
-            ${site.isVerified !== false ? `
+            ${site.isVerified ? `
               <div onclick="openTeacherVerifyModal('${site.id}')" 
                    class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-300 rounded-xl text-emerald-800 text-xs font-bold shadow-xs cursor-pointer hover:bg-emerald-100 transition" 
                    title="Nội dung đã được Giáo viên kiểm duyệt đạt chuẩn. Bấm để quản lý kiểm duyệt.">

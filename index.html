@@ -666,14 +666,12 @@
           <!-- ============================================== -->
           <!-- NÚT TÍCH XÁC THỰC DỮ LIỆU CỦA GIÁO VIÊN        -->
           <!-- ============================================== -->
-          <div class="p-3.5 bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 border-2 border-emerald-300 rounded-2xl shadow-sm">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="toggleTeacherCheckbox()">
-              <input type="checkbox" id="teacher-verify-checkbox" onchange="onTeacherCheckboxChange()" class="w-6 h-6 text-emerald-600 rounded-lg border-2 border-emerald-500 focus:ring-emerald-500 cursor-pointer shrink-0">
-              <label for="teacher-verify-checkbox" class="font-black text-sm sm:text-base text-emerald-950 block leading-tight cursor-pointer select-none">
-                Thông tin đã được phê duyệt
-              </label>
-            </div>
-          </div>
+                    <label for="teacher-verify-checkbox" class="flex items-center gap-3 p-3.5 bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 border-2 border-emerald-300 hover:border-emerald-500 rounded-2xl cursor-pointer shadow-xs hover:shadow transition select-none block">
+            <input type="checkbox" id="teacher-verify-checkbox" onchange="onTeacherCheckboxChange()" class="w-6 h-6 text-emerald-600 rounded-lg border-2 border-emerald-400 focus:ring-emerald-500 cursor-pointer shrink-0">
+            <span class="font-black text-sm sm:text-base text-emerald-950 block leading-tight cursor-pointer">
+              Thông tin đã được phê duyệt
+            </span>
+          </label>
 
           <!-- Teacher Evaluation Notes Input -->
           <div>
@@ -2038,7 +2036,26 @@
     }
 
     function onTeacherCheckboxChange() {
-      // Kept clean per user request: only 'Thông tin đã được phê duyệt'
+      const checkbox = document.getElementById('teacher-verify-checkbox');
+      const statusContainer = document.getElementById('teacher-current-status-pill');
+      if (statusContainer) {
+        if (checkbox.checked) {
+          statusContainer.innerHTML = `
+            <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300 flex items-center gap-1.5 shadow-sm">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i>
+              <span>Đã Phê Duyệt ✓</span>
+            </span>
+          `;
+        } else {
+          statusContainer.innerHTML = `
+            <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold border border-amber-300 flex items-center gap-1.5 shadow-sm">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-600"></i>
+              <span>Chờ Giáo Viên Duyệt...</span>
+            </span>
+          `;
+        }
+        lucide.createIcons();
+      }
     }
 
     function updateTeacherCheckboxText(isChecked) {

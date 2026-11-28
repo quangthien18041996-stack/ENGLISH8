@@ -56,6 +56,10 @@
       border-radius: 4px;
     }
   </style>
+  <!-- Favicon: Logo Trường THCS Hòa Hiệp -->
+  <link rel="icon" type="image/png" href="images/logo_hoa_hiep.png">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="images/logo_hoa_hiep.png">
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-rose-500 selection:text-white">
 
@@ -70,13 +74,17 @@
       <!-- Poster Header Banner -->
       <div class="relative bg-gradient-to-r from-heritage-navy via-slate-900 to-heritage-navy p-5 text-white">
         <!-- Floating Badges -->
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
           <span id="info-station-badge" class="px-2.5 py-1 rounded-full bg-amber-400 text-slate-950 text-xs font-black uppercase tracking-wide shadow">
             Trạm 1
           </span>
           <span id="info-group-badge" class="px-2.5 py-1 rounded-full bg-white/15 backdrop-blur text-emerald-300 text-xs font-bold border border-emerald-400/30">
             Nhóm 1 - Heritage Ambassadors
           </span>
+        </div>
+        <div class="text-[11px] text-amber-300 font-semibold flex items-center gap-1.5 mb-1 bg-black/25 px-2.5 py-1 rounded-lg border border-white/10 w-fit">
+          <img src="images/logo_hoa_hiep.png" alt="Logo" class="w-4 h-4 object-contain rounded-full bg-white">
+          <span>Trường THCS Hòa Hiệp • GV: Trần Thị Thanh Nguyên</span>
         </div>
 
         <h2 id="info-title-vn" class="text-2xl font-serif font-bold text-white mb-1 leading-snug">
@@ -98,7 +106,7 @@
           </div>
           <div class="p-2 rounded-xl bg-white/5 border border-white/10">
             <span class="text-[10px] text-gray-300 uppercase block font-semibold">Phụ trách</span>
-            <span id="info-spec-class" class="text-xs font-bold text-amber-300">Lớp 8A1</span>
+            <span id="info-spec-class" class="text-xs font-bold text-amber-300">Khối 8</span>
           </div>
         </div>
       </div>
@@ -200,10 +208,10 @@
         <div>
           <label class="block text-[11px] font-bold text-gray-700 mb-1">Bạn là thành viên nhóm nào?</label>
           <select id="comment-author-select" class="w-full text-xs font-semibold px-3 py-2 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
-            <option value="Nhóm 1 - Heritage Ambassadors (8A1)">Nhóm 1 - Heritage Ambassadors (8A1)</option>
-            <option value="Nhóm 2 - Golden Bell (8A1)">Nhóm 2 - Golden Bell (8A1)</option>
-            <option value="Nhóm 3 - Saigon Explorers (8A2)">Nhóm 3 - Saigon Explorers (8A2)</option>
-            <option value="Nhóm 4 - Young Pioneers (8A2)">Nhóm 4 - Young Pioneers (8A2)</option>
+            <option value="Nhóm 1 - Heritage Ambassadors">Nhóm 1 - Heritage Ambassadors</option>
+            <option value="Nhóm 2 - Golden Bell">Nhóm 2 - Golden Bell</option>
+            <option value="Nhóm 3 - Saigon Explorers">Nhóm 3 - Saigon Explorers</option>
+            <option value="Nhóm 4 - Young Pioneers">Nhóm 4 - Young Pioneers</option>
             <option value="Thầy/Cô Ban Giám Khảo STEM">Thầy/Cô Ban Giám Khảo STEM</option>
             <option value="Khách Tham Quan & Phụ Huynh">Khách Tham Quan & Phụ Huynh</option>
           </select>
@@ -263,7 +271,7 @@
       "site-1": {
         id: "site-1",
         groupName: "Nhóm 1 - Heritage Ambassadors",
-        studentClass: "Lớp 8A1",
+        studentClass: "Khối 8",
         titleVn: "Bưu điện Trung tâm Sài Gòn",
         titleEn: "Saigon Central Post Office",
         district: "Quận 1",
@@ -284,15 +292,15 @@
         ],
         defaultLikes: 148,
         defaultComments: [
-          { author: "Nhóm 2 - Golden Bell (8A1)", time: "10 phút trước", text: "Giọng đọc tiếng Anh của nhóm bạn rất chuẩn, âm đuôi rõ ràng! Bức ảnh chụp mái vòm tuyệt đẹp! ❤️👏", likes: 12 },
-          { author: "Nhóm 3 - Saigon Explorers (8A2)", time: "25 phút trước", text: "Thiết kế infographic đẹp mắt, phần giải thích khung vòm chịu lực đậm chất STEM! 🎨⭐", likes: 8 },
+          { author: "Nhóm 2 - Golden Bell", time: "10 phút trước", text: "Giọng đọc tiếng Anh của nhóm bạn rất chuẩn, âm đuôi rõ ràng! Bức ảnh chụp mái vòm tuyệt đẹp! ❤️👏", likes: 12 },
+          { author: "Nhóm 3 - Saigon Explorers", time: "25 phút trước", text: "Thiết kế infographic đẹp mắt, phần giải thích khung vòm chịu lực đậm chất STEM! 🎨⭐", likes: 8 },
           { author: "Ban Giám Khảo STEM", time: "1 giờ trước", text: "Sản phẩm số rất công phu, tích hợp mã QR và audio guide đáp ứng hoàn hảo yêu cầu CV 5512. Chúc mừng Nhóm 1! 🏆", likes: 25 }
         ]
       },
       "site-2": {
         id: "site-2",
         groupName: "Nhóm 2 - Golden Bell",
-        studentClass: "Lớp 8A1",
+        studentClass: "Khối 8",
         titleVn: "Nhà thờ Đức Bà Sài Gòn",
         titleEn: "Notre Dame Cathedral of Saigon",
         district: "Quận 1",
@@ -313,15 +321,15 @@
         ],
         defaultLikes: 165,
         defaultComments: [
-          { author: "Nhóm 1 - Heritage Ambassadors (8A1)", time: "15 phút trước", text: "Thông tin gạch Marseille không trát vữa giữ màu 140 năm cực kỳ ấn tượng! Đã thả tim cho nhóm bạn! ❤️", likes: 14 },
-          { author: "Nhóm 4 - Young Pioneers (8A2)", time: "30 phút trước", text: "Phần âm thanh phát âm từ 'Cathedral' và 'Marseille' rất chuẩn xác!", likes: 9 },
+          { author: "Nhóm 1 - Heritage Ambassadors", time: "15 phút trước", text: "Thông tin gạch Marseille không trát vữa giữ màu 140 năm cực kỳ ấn tượng! Đã thả tim cho nhóm bạn! ❤️", likes: 14 },
+          { author: "Nhóm 4 - Young Pioneers", time: "30 phút trước", text: "Phần âm thanh phát âm từ 'Cathedral' và 'Marseille' rất chuẩn xác!", likes: 9 },
           { author: "Thầy Cô Bộ Môn Tiếng Anh", time: "2 giờ trước", text: "Bài thuyết minh sử dụng cấu trúc câu bị động (Passive voice) rất đúng ngữ pháp Unit 5 lớp 8. Rất tốt! 👍", likes: 19 }
         ]
       },
       "site-3": {
         id: "site-3",
         groupName: "Nhóm 3 - Saigon Explorers",
-        studentClass: "Lớp 8A2",
+        studentClass: "Khối 8",
         titleVn: "Chợ Bến Thành",
         titleEn: "Ben Thanh Market",
         district: "Quận 1",
@@ -342,15 +350,15 @@
         ],
         defaultLikes: 152,
         defaultComments: [
-          { author: "Nhóm 2 - Golden Bell (8A1)", time: "12 phút trước", text: "Lời khuyên du khách luyện tập trả giá thân thiện (friendly bargaining) và thử món bún/chè rất gần gũi! 🍲❤️", likes: 11 },
-          { author: "Nhóm 1 - Heritage Ambassadors (8A1)", time: "40 phút trước", text: "Phần infographic thiết kế màu sắc ấm áp, đậm chất chợ truyền thống Sài Gòn!", likes: 10 },
+          { author: "Nhóm 2 - Golden Bell", time: "12 phút trước", text: "Lời khuyên du khách luyện tập trả giá thân thiện (friendly bargaining) và thử món bún/chè rất gần gũi! 🍲❤️", likes: 11 },
+          { author: "Nhóm 1 - Heritage Ambassadors", time: "40 phút trước", text: "Phần infographic thiết kế màu sắc ấm áp, đậm chất chợ truyền thống Sài Gòn!", likes: 10 },
           { author: "Ban Giám Khảo STEM", time: "1 giờ trước", text: "Ứng dụng STEM giải thích hệ thống thông gió mái ngói rất sáng tạo. Đánh giá cao Nhóm 3! ⭐⭐⭐⭐⭐", likes: 21 }
         ]
       },
       "site-4": {
         id: "site-4",
         groupName: "Nhóm 4 - Young Pioneers",
-        studentClass: "Lớp 8A2",
+        studentClass: "Khối 8",
         titleVn: "Bến Nhà Rồng - Bảo tàng Hồ Chí Minh",
         titleEn: "Dragon Wharf - Ho Chi Minh Museum",
         district: "Quận 4",
@@ -371,8 +379,8 @@
         ],
         defaultLikes: 189,
         defaultComments: [
-          { author: "Nhóm 3 - Saigon Explorers (8A2)", time: "8 phút trước", text: "Giọng đọc hào hùng, phần kể về mốc 05/06/1911 rất xúc động và truyền cảm! 10/10! 🇻🇳❤️", likes: 16 },
-          { author: "Nhóm 2 - Golden Bell (8A1)", time: "20 phút trước", text: "Đã thả tim thứ 180 cho nhóm bạn! Infographic trình bày rất trang trọng và đẹp!", likes: 15 },
+          { author: "Nhóm 3 - Saigon Explorers", time: "8 phút trước", text: "Giọng đọc hào hùng, phần kể về mốc 05/06/1911 rất xúc động và truyền cảm! 10/10! 🇻🇳❤️", likes: 16 },
+          { author: "Nhóm 2 - Golden Bell", time: "20 phút trước", text: "Đã thả tim thứ 180 cho nhóm bạn! Infographic trình bày rất trang trọng và đẹp!", likes: 15 },
           { author: "Tổ Khoa Học Tự Nhiên & STEM", time: "1 giờ trước", text: "Sản phẩm số xuất sắc, thể hiện tinh thần tự hào dân tộc và năng lực số của học sinh lớp 8! 🌟", likes: 28 }
         ]
       }
